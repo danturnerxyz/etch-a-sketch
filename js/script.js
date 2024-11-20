@@ -1,29 +1,40 @@
 const container = document.querySelector('.container')
 const btn = document.getElementById('btn')
 
-function makeSquare(num) {
-    for ( i = 0; i < num; i++ ) {
+let containerW = 700
+
+function createCanvas(num) {
+    container.innerHTML = ''
+    for ( i = 0; i < num * num; i++ ) {
         const square = document.createElement('div')
+        square.style.width = `${containerW / num}px`
+        square.style.height = `${containerW / num}px`
         square.classList.add('square')
         container.appendChild(square)
     }
 }
 
-window.addEventListener('load', () => {
-    makeSquare(16 * 16)
-})
-
 container.addEventListener('mouseover', (ev) => {
-    ev.target.classList.add('active')
+    if (ev.target.classList.contains('square')) {
+        ev.target.classList.add('active')
+    }
 })
 
 btn.addEventListener('click', (ev) => {
-    let canvasSize = prompt('Enter new canvas size')
+    let userPrompt = prompt('Enter new canvas size: 1 - 100')
+    if (!isNaN(userPrompt) && (userPrompt <= 100) && (userPrompt >= 1) ) {
+        userPrompt = userPrompt
+    }  
+    else if (!isNaN(userPrompt) || (userPrompt > 100) || (userPrompt == 0)) {
+        alert('Enter a number between 1 - 100')
+        return
+    }
+    else {
+        alert('Enter a number between 1 - 100')
+        return
+    }
+    createCanvas(userPrompt)
 })
-
-function makeCanvas(num) {
-    let area = num * 2
-}
 
 
 
